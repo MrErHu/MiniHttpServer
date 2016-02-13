@@ -26,7 +26,7 @@ string makeRealURL(const string& url)
 {
     string tempURL,realURL;
     int pos=url.find(__http_domain);
-    if(pos==string::npos)
+    if(pos!=-1)
     {//存在域名将其删去
         tempURL=url.substr(__http_domain.size(),url.size()-__http_domain.size());
     }
@@ -34,6 +34,7 @@ string makeRealURL(const string& url)
     {//否则保持不变
         tempURL=url;
     }
+    cout<<tempURL<<endl;
     if(__http_docroot[__http_docroot.size()-1] == '/')//配置项docroot末尾有'/'
     {
         if(tempURL[0] == '/')

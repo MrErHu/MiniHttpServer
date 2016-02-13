@@ -97,7 +97,7 @@ string RequestMessage::getRequestHeadersValue(const string& KEY)
      */
 bool  RequestMessage::isValid()
 {
-    if(this->requsetHeaders.empty() || this->method.empty() || this->request_URL.empty() || this->version.empty())
+    if(this->method.empty() || this->request_URL.empty() || this->version.empty())
     {
         return false;
     }

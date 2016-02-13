@@ -7,15 +7,6 @@
 #ifndef MINIHTTPSERVER_RESPONSEMESSAGE_H
 #define MINIHTTPSERVER_RESPONSEMESSAGE_H
 
-#include <iostream>
-#include <string>
-#include <vector>
-
-#include "RequestMessage.h"
-#include "ServerTool.h"
-
-using namespace std;
-
 //HTTP状态码
 #define HTTP_CONTINUE 		100	//收到了请求的起始部分，客户端应该继续请求
 
@@ -37,13 +28,6 @@ using namespace std;
 #define HTTP_BADGATEWAY		502	//作为代理或网关使用的服务器遇到了来自响应链中上游的无效响应
 #define HTTP_SRVUNAVAILABLE	503 //服务器目前无法提供请求服务，过一段时间后可以恢复
 
-//HTTP友好语句
-string http_ok = 			    "OK";
-string http_badrequest = 	    "Bad Request";
-string http_forbidden =		    "Forbidden";
-string http_notfound = 		    "Not Found";
-string http_noimplemented = 	"No Implemented";
-
 //HTTP响应首部
 #define TYHP_ACCEPTRANGE_HEAD			"Accpet-Range"
 #define	TYHP_AGE_HEAD 					"Age"
@@ -61,6 +45,15 @@ string http_noimplemented = 	"No Implemented";
 #define TYHP_RANGE_HEAD 				"Range"
 #define	TYHP_SERVER_HEAD				"Server"
 
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "RequestMessage.h"
+#include "ServerTool.h"
+
+using namespace std;
 /*
  *函数作用：通过HTTP状态码返回友好语句
  *函数参数：int:HTTP状态码
@@ -74,6 +67,6 @@ string parseCodeToStatement(int HTTPcode);
  *目前支持的请求首部：GET HEAD
  *目前支持的响应首部：Date，Content-Base，Content-Length，Content-Location,Last-Modified，Public，Server
  */
-int  createResponseMessage(RequestMessage requestMessage,string responseMessage);
+int  createResponseMessage(RequestMessage &requestMessage,string& responseMessage);
 
 #endif //MINIHTTPSERVER_RESPONSEMESSAGE_H

@@ -7,6 +7,8 @@
 #ifndef MINIHTTPSERVER_REQUESTMESSAGE_H
 #define MINIHTTPSERVER_REQUESTMESSAGE_H
 
+#define  MAXTEST 100
+
 #include <iostream>
 #include <map>
 #include <string>

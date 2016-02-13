@@ -14,15 +14,15 @@ string parseCodeToStatement(int HTTPcode)
     switch (HTTPcode)
     {
         case HTTP_OK:
-            return http_ok;
+            return "OK";
         case HTTP_BADREQUEST:
-            return http_badrequest;
+            return "Bad Request";
         case HTTP_FORBIDDEN:
-            return http_forbidden;
+            return "Forbidden";
         case HTTP_NOTFOUND:
-            return http_notfound;
+            return "Not Found";
         case HTTP_NOIMPLEMENTED:
-            return http_noimplemented;
+            return "No Implemented";
         default:
             break;
     }
@@ -68,7 +68,7 @@ int  createResponseMessage(RequestMessage &requestMessage,string& responseMessag
             statusLine+=parseCodeToStatement(HTTP_NOTFOUND);
             responseMessage=statusLine+crlf;
             responseMessage+=server+crlf;
-            responseMessage+=date+crlf;
+            responseMessage+=date;
             return HTTP_NOTFOUND;
         }
         else
@@ -79,7 +79,7 @@ int  createResponseMessage(RequestMessage &requestMessage,string& responseMessag
             responseMessage+=contentLength+to_string(fileLength(realURL))+crlf;
             responseMessage+=server+crlf;
             responseMessage+=content_base+crlf;
-            responseMessage+=date+crlf;
+            responseMessage+=date;
             responseMessage+=contentLastModified+fileModifiedTime(realURL)+crlf;
             responseMessage+=crlf;
             //读取body
@@ -98,7 +98,7 @@ int  createResponseMessage(RequestMessage &requestMessage,string& responseMessag
             statusLine+=parseCodeToStatement(HTTP_NOTFOUND);
             responseMessage=statusLine+crlf;
             responseMessage+=server+crlf;
-            responseMessage+=date+crlf;
+            responseMessage+=date;
             return HTTP_NOTFOUND;
         }
         else
@@ -109,7 +109,7 @@ int  createResponseMessage(RequestMessage &requestMessage,string& responseMessag
             responseMessage+=contentLength+to_string(fileLength(realURL))+crlf;
             responseMessage+=server+crlf;
             responseMessage+=content_base+crlf;
-            responseMessage+=date+crlf;
+            responseMessage+=date;
             responseMessage+=contentLastModified+fileModifiedTime(realURL)+crlf;
             responseMessage+=crlf;
             return HTTP_OK;
@@ -121,7 +121,7 @@ int  createResponseMessage(RequestMessage &requestMessage,string& responseMessag
         statusLine+=parseCodeToStatement(HTTP_NOIMPLEMENTED);
         responseMessage=statusLine+crlf;
         responseMessage+=server+crlf;
-        responseMessage+=date+crlf;
+        responseMessage+=date;
         return HTTP_NOIMPLEMENTED;
     }
     else
