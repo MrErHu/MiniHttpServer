@@ -90,3 +90,16 @@ string RequestMessage::getRequestHeadersValue(const string& KEY)
         return "";
     }
 }
+/*
+     * 作用:RequestMessage是否有效
+     * 参数:无
+     * 返回:bool true:有效;false:无效
+     */
+bool  RequestMessage::isValid()
+{
+    if(this->requsetHeaders.empty() || this->method.empty() || this->request_URL.empty() || this->version.empty())
+    {
+        return false;
+    }
+    return true;
+}

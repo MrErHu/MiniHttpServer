@@ -40,6 +40,12 @@ public:
      * 参数:string类型的KEY值
      * 返回:string类型的对应值
      */
+    /*
+     * 作用:RequestMessage是否有效
+     * 参数:无
+     * 返回:bool true:有效;false:无效
+     */
+    bool  isValid();
     string getRequestHeadersValue(const string& KEY);
     /*
      * 下列成员函数用来返回RequestMessage成员变量
