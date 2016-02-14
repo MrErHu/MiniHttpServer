@@ -26,6 +26,7 @@
 #include <pthread.h>
 #include <netinet/tcp.h>
 #include <time.h>
+#include<arpa/inet.h>
 #include <sys/stat.h>
 
 
@@ -75,7 +76,7 @@ bool parseConfig(const string& path);
     * 参数:int文件标识符
     * 返回:bool标识设置成功与否
     */
-bool setFileNonBloking(int fd);
+bool setSocketNonBloking(int fd);
 /*
 *函数作用：设置套接字SO_REUSEADDR选项
 *函数参数：要设置的套接字

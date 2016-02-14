@@ -3,7 +3,7 @@
 #include "ResponseMessage.h"
 
 #define MAX_BACKLOG 100 //最大排队数量
-#define BUFF_SIZE 1024*10
+#define BUFF_SIZE 1024*1024
 
 using namespace std;
 
@@ -39,10 +39,9 @@ int main()
     socketBind(listen_fd, (struct sockaddr*)&server_addr, sizeof(server_addr));
     //开始监听
     socketListen(listen_fd, MAX_BACKLOG);
-    cout<<"start......"<<endl;
+    cout<<"Server Start......"<<endl;
     while(true)
     {
-        cout<<"acess.."<<endl;
         conn_sock = socketAccept(listen_fd, (struct sockaddr*)&client_addr, &addrlen);
         if(conn_sock>=0)
         {
@@ -55,11 +54,22 @@ int main()
         }
         //设置新链接上的套接字为非阻塞模式
         setSocketNonBloking(conn_sock);
-        recv(conn_sock,rev,BUFF_SIZE,0);
+        if(recv(conn_sock,rev,BUFF_SIZE,0)==-1)
+        {
+            break;
+        }
+        string requeststring(rev);
+        string sendstring;
+        RequestMessage requestMessage;
+        requestMessage.requestMessageParse(requeststring);
+        createResponseMessage(requestMessage,sendstring);
+        const char *sed=sendstring.c_str();
+        if(send(conn_sock, sed, strlen(sed) + 1, 0)==-1)
+        {
+            break;
+        }
         close(conn_sock);
-        string temp(rev);
-        cout<<temp<<endl;
-        break;
+        continue;
     }
     close(listen_fd);
     return 0;

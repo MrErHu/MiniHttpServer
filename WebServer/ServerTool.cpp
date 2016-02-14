@@ -131,7 +131,7 @@ bool parseConfig(const string& path)
     * 参数:int文件标识符
     * 返回:bool标识设置成功与否
     */
-bool setFileNonBloking(int fd)
+bool setSocketNonBloking(int fd)
 {
     int flags = fcntl(fd, F_GETFL, 0);
     if (flags < 0)
@@ -246,6 +246,10 @@ void socketBind(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
     if(bind(sockfd, addr, addrlen) == -1)
     {
         exit(-1);
+    }
+    else
+    {
+        cout<<"bind success..."<<endl;
     }
 }
 /*
