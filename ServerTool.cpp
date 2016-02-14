@@ -243,13 +243,9 @@ void socketListen(int sockfd, int backlog)
  */
 void socketBind(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 {
-    if(bind(sockfd, addr, addrlen) == -1)
+    if(::bind(sockfd, addr, addrlen) == -1)
     {
         exit(-1);
-    }
-    else
-    {
-        cout<<"bind success..."<<endl;
     }
 }
 /*
@@ -262,7 +258,7 @@ int socketAccept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
     int ret_fd = 0;
     for(;;)
     {
-        ret_fd = accept(sockfd, addr, addrlen);
+        ret_fd = ::accept(sockfd, addr, addrlen);
         if(ret_fd > 0)
             break;
         else if(ret_fd == -1)
@@ -279,21 +275,6 @@ int socketAccept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
             continue;
     }
     return ret_fd;
-}
-/*
- * 作用:封装系统调用:getservbyname()返回与给定服务名对应的包含名字和服务号信息的servent结构指针。
- * 参数:name:一个指向服务名的指针 proto:指向协议名的指针
- * 返回:servent结构指针。
- */
-struct servent* Getservbyname(const char *name, const char *proto)
-{
-    struct servent 	*pservent;
-    if((pservent = getservbyname(name, proto)) == NULL)
-    {
-        perror("getservbyname");
-        exit(-1);
-    }
-    return pservent;
 }
 
 
